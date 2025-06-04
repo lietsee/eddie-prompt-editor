@@ -16,7 +16,7 @@ export function PromptList({
 }) {
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
+      <div className="flex items-center justify-center h-64 p-4 sm:p-6">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-secondary-600">プロンプトを読み込み中...</p>
@@ -27,7 +27,7 @@ export function PromptList({
 
   if (error) {
     return (
-      <div className="p-6 bg-red-50 border border-red-200 rounded-xl animate-slide-up">
+      <div className="p-4 sm:p-6 bg-red-50 border border-red-200 rounded-xl animate-slide-up">
         <div className="flex items-center space-x-3">
           <ExclamationCircleIcon className="w-6 h-6 text-red-600" />
           <div>
@@ -40,12 +40,12 @@ export function PromptList({
   }
 
   return (
-    <div className="h-full flex flex-col animate-fade-in p-4 sm:p-6">
-      <div className="flex-shrink-0 mb-4">
+    <div className="h-full flex flex-col animate-fade-in">
+      <div className="flex-shrink-0 p-4 sm:p-6 pb-0">
         <SearchBar onSearch={onSearch} />
       </div>
       
-      <div className="flex-1 scrollbar-always-visible min-h-0">
+      <div className="flex-1 scrollbar-always-visible min-h-0 p-4 sm:p-6 pt-4" style={{ maxHeight: 'calc(100vh - 280px)' }}>
           {prompts.length === 0 ? (
             <div className="text-center py-16">
               <div className="bg-gradient-to-br from-primary-100 to-accent-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
