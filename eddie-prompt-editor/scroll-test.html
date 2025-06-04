@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スクロールバーテスト</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* カスタムスクロールバー */
+        .scrollbar-thin {
+            scrollbar-width: thin;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .scrollbar-thumb-secondary-300::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+        }
+
+        .scrollbar-track-transparent::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* テスト用のカラーパレット */
+        .bg-primary-50 { background-color: #eff6ff; }
+        .bg-primary-100 { background-color: #dbeafe; }
+        .bg-secondary-200 { background-color: #e2e8f0; }
+        .text-secondary-600 { color: #475569; }
+        .text-secondary-900 { color: #0f172a; }
+        .border-secondary-200 { border-color: #e2e8f0; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4">スクロールバーテスト</h1>
+        
+        <!-- テストケース1: 基本的なスクロールエリア -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-2">テスト1: 基本的なスクロールエリア</h2>
+            <div class="w-96 h-64 bg-white border border-gray-300 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary-300 scrollbar-track-transparent">
+                <div class="p-4">
+                    <div class="space-y-4">
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 1</div>
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 2</div>
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 3</div>
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 4</div>
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 5</div>
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 6</div>
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 7</div>
+                        <div class="h-20 bg-blue-100 rounded p-4">アイテム 8</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- テストケース2: Flexレイアウトでのスクロール -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-2">テスト2: Flexレイアウトでのスクロール</h2>
+            <div class="w-96 h-80 bg-white border border-gray-300 flex flex-col">
+                <div class="flex-shrink-0 p-4 bg-gray-50 border-b">
+                    ヘッダー（固定）
+                </div>
+                <div class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary-300 scrollbar-track-transparent min-h-0">
+                    <div class="p-4">
+                        <div class="space-y-4">
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 1</div>
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 2</div>
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 3</div>
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 4</div>
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 5</div>
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 6</div>
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 7</div>
+                            <div class="h-20 bg-green-100 rounded p-4">アイテム 8</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 p-4 bg-gray-50 border-t">
+                    フッター（固定）
+                </div>
+            </div>
+        </div>
+
+        <!-- テストケース3: 現在のPromptListに近い構造 -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-2">テスト3: PromptListに近い構造</h2>
+            <div class="w-96 h-96 bg-white border border-gray-300 flex flex-col">
+                <div class="flex-shrink-0 p-4 bg-gray-50 border-b">
+                    <input type="text" placeholder="検索..." class="w-full p-2 border rounded">
+                </div>
+                <div class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary-300 scrollbar-track-transparent min-h-0 p-4">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 1</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 2</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 3</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 4</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 5</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 6</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 7</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                        <div class="p-4 bg-primary-50 rounded-lg border">
+                            <h3 class="font-semibold">プロンプト 8</h3>
+                            <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-secondary-200">
+                        <p class="text-xs text-center text-secondary-600">8 件のプロンプトが保存されています</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- テストケース4: 異なるアプローチ -->
+        <div class="mb-8">
+            <h2 class="text-lg font-semibold mb-2">テスト4: 代替アプローチ</h2>
+            <div class="w-96 bg-white border border-gray-300 flex flex-col" style="height: 400px;">
+                <div class="flex-shrink-0 p-4 bg-gray-50 border-b">
+                    <input type="text" placeholder="検索..." class="w-full p-2 border rounded">
+                </div>
+                <div class="flex-1 min-h-0 relative">
+                    <div class="absolute inset-0 overflow-y-auto scrollbar-thin scrollbar-thumb-secondary-300 scrollbar-track-transparent p-4">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 1</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 2</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 3</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 4</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 5</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 6</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 7</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                            <div class="p-4 bg-red-50 rounded-lg border">
+                                <h3 class="font-semibold">プロンプト 8</h3>
+                                <p class="text-sm text-secondary-600 mt-2">これはテスト用のプロンプトです。長い内容があります...</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-secondary-200">
+                            <p class="text-xs text-center text-secondary-600">8 件のプロンプトが保存されています</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // テスト結果をコンソールに出力
+        window.onload = function() {
+            console.log('=== スクロールバーテスト結果 ===');
+            
+            const testCases = [
+                { name: 'テスト1: 基本的なスクロールエリア', selector: 'div:nth-child(2) > div:nth-child(2)' },
+                { name: 'テスト2: Flexレイアウト', selector: 'div:nth-child(3) > div:nth-child(2) > div:nth-child(2)' },
+                { name: 'テスト3: PromptList構造', selector: 'div:nth-child(4) > div:nth-child(2) > div:nth-child(2)' },
+                { name: 'テスト4: 代替アプローチ', selector: 'div:nth-child(5) > div:nth-child(2) > div:nth-child(2) > div' }
+            ];
+            
+            testCases.forEach((test, index) => {
+                const element = document.querySelector(test.selector);
+                if (element) {
+                    const hasScrollbar = element.scrollHeight > element.clientHeight;
+                    const hasOverflow = window.getComputedStyle(element).overflowY === 'auto' || window.getComputedStyle(element).overflowY === 'scroll';
+                    console.log(`${test.name}:`);
+                    console.log(`  - スクロール可能: ${hasScrollbar}`);
+                    console.log(`  - overflow-y: ${window.getComputedStyle(element).overflowY}`);
+                    console.log(`  - scrollHeight: ${element.scrollHeight}px`);
+                    console.log(`  - clientHeight: ${element.clientHeight}px`);
+                    console.log('');
+                } else {
+                    console.log(`${test.name}: 要素が見つかりません`);
+                }
+            });
+        };
+    </script>
+</body>
+</html>

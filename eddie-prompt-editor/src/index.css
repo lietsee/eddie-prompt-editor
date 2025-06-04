@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+/* Global Styles */
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom Scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  .scrollbar-track-transparent::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thumb-secondary-300::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+  }
+
+  /* PromptList用スクロールバー - 常に表示 */
+  .scrollbar-always-visible {
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    overflow-y: scroll; /* 常にスクロールバーを表示 */
+  }
+
+  .scrollbar-always-visible::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-always-visible::-webkit-scrollbar-track {
+    background: rgba(226, 232, 240, 0.3);
+    border-radius: 4px;
+  }
+
+  .scrollbar-always-visible::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+
+  .scrollbar-always-visible::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  /* Text Selection */
+  ::selection {
+    background: #bfdbfe;
+    color: #1e3a8a;
+  }
+
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Component Utilities */
+@layer components {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .card-hover {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .card-hover:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-4px);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #2563eb, #c026d3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-border {
+    border: 1px solid transparent;
+    background: linear-gradient(135deg, #3b82f6, #d946ef) border-box;
+    background-clip: border-box;
+  }
+}
+
+/* Animation Utilities */
+@layer utilities {
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  /* Interactive States */
+  .interactive {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .interactive:hover {
+    transform: scale(1.05);
+  }
+  
+  .interactive:active {
+    transform: scale(0.95);
+  }
+
+  .button-press {
+    transition: transform 0.075s ease-in-out;
+  }
+  
+  .button-press:active {
+    transform: scale(0.95);
+  }
+
+  /* Layout Utilities */
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Mobile Optimizations */
+  @media (max-width: 640px) {
+    .mobile-full {
+      width: 100%;
+    }
+    
+    .mobile-stack {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .mobile-stack > * + * {
+      margin-left: 0;
+    }
+  }
+}
