@@ -12,7 +12,9 @@ export function ConfirmDialog({
   cancelText = 'キャンセル',
   confirmVariant = 'danger'
 }) {
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   const handleConfirm = () => {
     onConfirm();
@@ -20,11 +22,11 @@ export function ConfirmDialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto animate-fade-in">
+    <div className="fixed inset-0 z-[9999] overflow-y-auto animate-fade-in">
       <div className="flex min-h-screen items-center justify-center p-4">
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose} />
         
-        <div className="relative bg-white/95 backdrop-blur-md rounded-2xl max-w-md w-full p-6 shadow-soft-lg border border-white/20 animate-slide-up">
+        <div className="relative bg-white/95 backdrop-blur-md rounded-2xl max-w-md w-full p-6 shadow-soft-lg border border-white/20 animate-slide-up" style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)' }}>
           {/* Close Button */}
           <button
             onClick={onClose}

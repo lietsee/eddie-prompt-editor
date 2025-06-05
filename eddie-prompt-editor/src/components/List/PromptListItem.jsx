@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { RatingStars } from './RatingStars';
 import { RatingDialog } from '../Modal/RatingDialog';
-import { ConfirmDialog } from '../Modal/ConfirmDialog';
 import { 
   DocumentDuplicateIcon, 
   TrashIcon, 
@@ -18,7 +17,8 @@ export function PromptListItem({
   isSelected = false 
 }) {
   const [showRatingDialog, setShowRatingDialog] = useState(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const isActionClickedRef = useRef(false);
+
 
   const formatDate = (timestamp) => {
     return new Date(timestamp).toLocaleDateString('ja-JP', {
@@ -34,13 +34,52 @@ export function PromptListItem({
     return content.substring(0, maxLength) + '...';
   };
 
+  const handleCardClick = useCallback(() => {
+    // モーダルが開いている場合、またはアクションボタンがクリックされた場合は無視
+    if (isActionClickedRef.current || showRatingDialog) {
+      return;
+    }
+    onSelect(prompt);
+  }, [onSelect, prompt, showRatingDialog]);
+
+  const handleCopyClick = useCallback((e) => {
+    // カードクリック無効化
+    isActionClickedRef.current = true;
+    
+    e.stopPropagation();
+    e.preventDefault();
+    onCopyAndEdit(prompt);
+    
+    // 100ms後にアクションフラグリセット
+    setTimeout(() => {
+      isActionClickedRef.current = false;
+    }, 100);
+  }, [onCopyAndEdit, prompt]);
+
+  const handleDeleteClick = useCallback((e) => {
+    // 確実なイベント阻止（最初に実行）
+    e.stopPropagation();
+    e.preventDefault();
+    if (e.nativeEvent && e.nativeEvent.stopImmediatePropagation) {
+      e.nativeEvent.stopImmediatePropagation();
+    }
+    
+    // カードクリック無効化
+    isActionClickedRef.current = true;
+    
+    // 親コンポーネントのonDeleteハンドラを呼び出す
+    onDelete(prompt.id);
+    
+    // 100ms後にアクションフラグリセット
+    setTimeout(() => {
+      isActionClickedRef.current = false;
+    }, 100);
+  }, [onDelete, prompt.id]);
+
   const handleRate = (rating) => {
     onRate(prompt.id, rating);
   };
 
-  const handleDelete = () => {
-    onDelete(prompt.id);
-  };
 
   return (
     <div
@@ -49,8 +88,9 @@ export function PromptListItem({
           ? 'bg-gradient-to-br from-primary-50 to-accent-50 border-2 border-primary-200 shadow-glow' 
           : 'bg-white/80 backdrop-blur-sm border border-secondary-200 hover:bg-white hover:shadow-soft-lg hover:-translate-y-1'
       }`}
-      onClick={() => onSelect(prompt)}
+      onClick={handleCardClick}
     >
+
       {/* Header */}
       <div className="flex justify-between items-start mb-3">
         <div className="flex-1 min-w-0 mr-3">
@@ -68,23 +108,38 @@ export function PromptListItem({
         </div>
         
         {/* Action Buttons */}
-        <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div 
+          className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150 relative z-10"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (e.nativeEvent && e.nativeEvent.stopImmediatePropagation) {
+              e.nativeEvent.stopImmediatePropagation();
+            }
+          }}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        >
           <button
-            onClick={(e) => {
+            onClick={handleCopyClick}
+            onMouseDown={(e) => {
               e.stopPropagation();
-              onCopyAndEdit(prompt);
+              e.preventDefault();
             }}
-            className="p-2 text-secondary-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200"
+            className="p-2 text-secondary-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-150"
             title="コピーして編集"
           >
             <DocumentDuplicateIcon className="w-4 h-4" />
           </button>
           <button
-            onClick={(e) => {
+            onClick={handleDeleteClick}
+            onMouseDown={(e) => {
               e.stopPropagation();
-              setShowDeleteDialog(true);
+              e.preventDefault();
             }}
-            className="p-2 text-secondary-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200"
+            className="p-2 text-secondary-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-150"
             title="削除"
           >
             <TrashIcon className="w-4 h-4" />
@@ -129,16 +184,6 @@ export function PromptListItem({
         onClose={() => setShowRatingDialog(false)}
         onRate={handleRate}
         currentRating={prompt.rating}
-      />
-
-      <ConfirmDialog
-        isOpen={showDeleteDialog}
-        onClose={() => setShowDeleteDialog(false)}
-        onConfirm={handleDelete}
-        title="プロンプトを削除"
-        message="このプロンプトを削除しますか？この操作は取り消せません。"
-        confirmText="削除"
-        cancelText="キャンセル"
       />
     </div>
   );
